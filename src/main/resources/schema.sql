@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS activity (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
-    description TEXT,
+--     description TEXT,
     duration_minutes INTEGER NOT NULL,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     mood_rating INTEGER CHECK (mood_rating BETWEEN 1 AND 5)

@@ -19,7 +19,7 @@ public class ActivityService {
     @Autowired
     public ActivityService(ActivityRepository activityRepository, FeelingRepository feelingRepository) {
         this.activityRepository = activityRepository;
-        this.feelingRepository = feelingRepository; // ✅ 修正：確保 FeelingRepository 被注入
+        this.feelingRepository = feelingRepository;
     }
 
     @Transactional
