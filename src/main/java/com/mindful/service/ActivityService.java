@@ -1,25 +1,31 @@
 package com.mindful.service;
 
 import com.mindful.model.Activity;
+import com.mindful.model.Feeling;
 import com.mindful.repository.ActivityRepository;
+import com.mindful.repository.FeelingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final FeelingRepository feelingRepository;
 
     @Autowired
-    public ActivityService(ActivityRepository activityRepository) {
+    public ActivityService(ActivityRepository activityRepository, FeelingRepository feelingRepository) {
         this.activityRepository = activityRepository;
+        this.feelingRepository = feelingRepository; // ✅ 修正：確保 FeelingRepository 被注入
     }
 
-    public Activity createActivity(Activity activity) {
+    @Transactional
+    public Activity createActivity(Activity activity, Set<Long> feelingIds) {
+        Set<Feeling> feelings = new HashSet<>(feelingRepository.findAllById(feelingIds));
+        activity.setFeelings(feelings);
         return activityRepository.save(activity);
     }
 

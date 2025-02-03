@@ -1,8 +1,6 @@
 package com.mindful.model;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "feeling")
@@ -14,9 +12,6 @@ public class Feeling {
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "feelings")
-    private Set<Activity> activities = new HashSet<>();
 
     // Constructors
     public Feeling() {}
@@ -40,13 +35,5 @@ public class Feeling {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Activity> getActivities() {
-        return activities;
-    }
-
-    public void setActivities(Set<Activity> activities) {
-        this.activities = activities;
     }
 }

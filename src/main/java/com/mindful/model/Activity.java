@@ -1,5 +1,6 @@
 package com.mindful.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -21,10 +22,10 @@ public class Activity {
     private LocalDateTime date;
 
     @Column(nullable = false)
-    private int durationMinutes;
+    private Integer durationMinutes;
 
     @Column(nullable = false)
-    private int moodRating;
+    private Integer moodRating;
 
     @ManyToMany
     @JoinTable(
@@ -67,6 +68,7 @@ public class Activity {
         this.date = date;
     }
 
+    @JsonProperty("duration_minutes")
     public int getDurationMinutes() {
         return durationMinutes;
     }
@@ -75,6 +77,7 @@ public class Activity {
         this.durationMinutes = durationMinutes;
     }
 
+    @JsonProperty("mood_rating")
     public int getMoodRating() {
         return moodRating;
     }

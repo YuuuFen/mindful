@@ -1,6 +1,7 @@
 package com.mindful.controller;
 
 import com.mindful.model.Activity;
+import com.mindful.dto.ActivityRequest;
 import com.mindful.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,16 @@ public class ActivityController {
     }
 
     @PostMapping
-    public ResponseEntity<Activity> createActivity(@RequestBody Activity activity) {
-        Activity createdActivity = activityService.createActivity(activity);
+    public ResponseEntity<Activity> createActivity(@RequestBody ActivityRequest request) {
+
+        Activity activity = new Activity(
+                request.getName(),
+                request.getDate(),
+                request.getDurationMinutes(),
+                request.getMoodRating()
+        );
+
+        Activity createdActivity = activityService.createActivity(activity, request.getFeelingIds());
         return new ResponseEntity<>(createdActivity, HttpStatus.CREATED);
     }
 
