@@ -24,8 +24,16 @@ public class ActivityService {
 
     @Transactional
     public Activity createActivity(Activity activity, Set<Long> feelingIds) {
-        Set<Feeling> feelings = new HashSet<>(feelingRepository.findAllById(feelingIds));
-        activity.setFeelings(feelings);
+        System.out.println("Received feelingIds: " + feelingIds); // Debug
+
+        if (feelingIds == null || feelingIds.isEmpty()) {
+            activity.setFeelings(new HashSet<>()); // 如果沒有 feelingIds，就設為空的 Set
+        } else {
+            Set<Feeling> feelings = new HashSet<>(feelingRepository.findAllById(feelingIds));
+            System.out.println("Fetched feelings: " + feelings); // Debug
+            activity.setFeelings(feelings);
+        }
+
         return activityRepository.save(activity);
     }
 
